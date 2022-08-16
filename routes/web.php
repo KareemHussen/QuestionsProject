@@ -54,4 +54,8 @@ Route::post('answer/updateAnswerFun', [AnswerController::class , 'updateAnswerFu
 Route::post('answer/delete', [AnswerController::class , 'deleteAnswerView'])->name('deleteAnswer')->middleware('auth');
 
 
-Auth::routes();
+Auth::routes([
+    'register' => false, // Registration Routes...
+    'reset' => false, // Password Reset Routes...
+    'verify' => false, // Email Verification Routes...
+]);
