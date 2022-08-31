@@ -25,18 +25,14 @@
 
         </div>
 
-
         <br>
         <br>
-
         @if($answer->image)
-            <img src="{{ asset("uploads/AnswersImages/".$answer->image) }}"  style="margin-left: 43%" alt="Image"  width="300px" height="300px">
-
+            <img src="{{ asset("uploads/AnswersImages/".$answer->image) }}"  style="margin-left: 39%; width : 400px; height : 400px" alt="Image"  >
         @endif
 
         <br>
         <br>
-
 
 
         <div class="text-center">

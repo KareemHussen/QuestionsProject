@@ -250,14 +250,9 @@ class CategoryController extends Controller
         $category_id = request('category_id');
         $name = request('name');
 
-        if ($category_id == null) {
+        if ($category_id == null || $name == null) {
 
-            return redirect('http://127.0.0.1:8000/');
-        }
-
-        if ($name == null) {
-
-            return redirect('http://127.0.0.1:8000/');
+            return redirect()->route('category');
         }
 
         $cat = Category::find($category_id);
@@ -267,16 +262,9 @@ class CategoryController extends Controller
             $cat->update([
                 'name' => $name
             ]);
-
-
-            return redirect('http://127.0.0.1:8000/');
-
-        } else {
-
-
-            return redirect('http://127.0.0.1:8000/');
-
         }
+
+        return redirect()->route('category');
     }
 
     public function addCategoryView()
@@ -290,13 +278,13 @@ class CategoryController extends Controller
         $name = request('name');
 
         if ($name == null) {
-            return redirect('http://127.0.0.1:8000/');
+            return redirect()->route('category');
         }
 
         Category::create([
             'name' => $name
         ]);
-        return redirect('http://127.0.0.1:8000/');
+        return redirect()->route('category');
     }
 
     public function deleteCategoryView()
@@ -307,7 +295,7 @@ class CategoryController extends Controller
 
         if ($category_id == null) {
 
-            return redirect('http://127.0.0.1:8000/');
+            return redirect()->route('category');
         }
 
 
@@ -335,7 +323,7 @@ class CategoryController extends Controller
 
             $cat->delete();
 
-            return redirect('http://127.0.0.1:8000/');
+            return redirect()->route('category');
 
 
         }

@@ -304,7 +304,8 @@ class AnswerController extends Controller
             'question_id' => $question_id
         ]);
 
-        return redirect('http://127.0.0.1:8000/question?category_id='.$question->category_id);
+        return redirect()->route('question',['category_id'=> $question->category_id]);
+//            redirect('http://127.0.0.1:8000/question?category_id='.$question->category_id);
 
     }
 
@@ -327,14 +328,10 @@ class AnswerController extends Controller
 
         $imageName = null;
 
-        if ($answer_id == null){
+        if ($answer_id == null || $text == null){
 
-            return redirect('http://127.0.0.1:8000/category?category_id='.$question->category_id);
-        }
+            return redirect()->route('question',['category_id'=> $question->category_id]);
 
-        if ($text == null){
-
-            return redirect('http://127.0.0.1:8000/category?category_id='.$question->category_id);
         }
 
         if ($answer) {
@@ -367,7 +364,7 @@ class AnswerController extends Controller
             ]);
 
         }
-        return redirect('http://127.0.0.1:8000/question?category_id='.$question->category_id);
+        return redirect()->route('question',['category_id'=> $question->category_id]);
     }
 
     public function deleteAnswerView()
@@ -394,10 +391,7 @@ class AnswerController extends Controller
             }
         }
 
-        return redirect('http://127.0.0.1:8000/question?category_id='.$question->category_id);
-
-
-
+        return redirect()->route('question',['category_id'=> $question->category_id]);
 
     }
 

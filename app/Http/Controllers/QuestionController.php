@@ -294,7 +294,7 @@ class QuestionController extends Controller
             'category_id' => $category_id
         ]);
 
-        return redirect('http://127.0.0.1:8000/question?category_id='.$category_id);
+        return redirect()->route('question',['category_id'=> $category_id]);
 
     }
 
@@ -315,15 +315,11 @@ class QuestionController extends Controller
         $answer = request('answer');
 
 
-        if ($category_id == null){
+        if ($category_id == null || $title == null){
 
-            return redirect('http://127.0.0.1:8000/question?category_id='.$category_id);
+            return redirect()->route('question',['category_id'=> $category_id]);
         }
 
-        if ($title == null){
-
-            return redirect('http://127.0.0.1:8000/question?category_id='.$category_id);
-        }
 
         $question = Question::find($question_id);
 
@@ -334,11 +330,11 @@ class QuestionController extends Controller
                 'answer' => $answer
             ]);
 
-            return redirect('http://127.0.0.1:8000/question?category_id='.$category_id);
+            return redirect()->route('question',['category_id'=> $category_id]);
 
         } else {
 
-            return redirect('http://127.0.0.1:8000/question?category_id='.$category_id);
+            return redirect()->route('question',['category_id'=> $category_id]);
 
         }
     }
@@ -372,7 +368,7 @@ class QuestionController extends Controller
 
         }
 
-        return redirect('http://127.0.0.1:8000/question?category_id='.$category_id);
+        return redirect()->route('question',['category_id'=> $category_id]);
 
     }
 }
