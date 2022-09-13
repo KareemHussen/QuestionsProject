@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-
+use Illuminate\Http\Request;
 
 
 class CategoryController extends Controller
@@ -272,10 +272,10 @@ class CategoryController extends Controller
         return view('add_category');
     }
 
-    public function addCategoryFun()
+    public function addCategoryFun(Request $request)
     {
 
-        $name = request('name');
+        $name = $request->name;
 
         if ($name == null) {
             return redirect()->route('category');
@@ -284,6 +284,7 @@ class CategoryController extends Controller
         Category::create([
             'name' => $name
         ]);
+
         return redirect()->route('category');
     }
 

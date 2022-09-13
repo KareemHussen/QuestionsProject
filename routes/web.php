@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +25,7 @@ Route::post('category/addCategoryFun', [CategoryController::class , 'addCategory
 Route::post('category/updateCategoryView', [CategoryController::class , 'updateCategoryView'])->name('updateCategoryView')->middleware('auth');
 Route::post('category/updateCategoryFun', [CategoryController::class , 'updateCategoryFun'])->name('updateCategoryFun')->middleware('auth');
 
-Route::post('category/delete', [CategoryController::class , 'deleteCategory'])->middleware('auth');
+Route::post('category/delete', [CategoryController::class , 'deleteCategory']);
 Route::post('category/deleteView', [CategoryController::class , 'deleteCategoryView'])->name('deleteCategory')->middleware('auth');
 
 
@@ -40,10 +39,12 @@ Route::post('question/addQuestionFun', [QuestionController::class , 'addQuestion
 Route::post('question/updateQuestionView', [QuestionController::class , 'updateQuestionView'])->name('updateQuestionView')->middleware('auth');
 Route::post('question/updateQuestionFun', [QuestionController::class , 'updateQuestionFun'])->name('updateQuestionFun')->middleware('auth');
 
-Route::post('question/delete', [QuestionController::class , 'deleteQuestionView'])->name('deleteQuestion')->middleware('auth');
+Route::post('question/delete', [QuestionController::class , 'deleteQuestionView'])->name('deleteQuestion')->middleware('auth');;
 
 
 
+
+Route::post('answer', [AnswerController::class , 'answerPage'])->name('answer')->middleware('auth');
 
 Route::post('answer/addAnswerView', [AnswerController::class , 'addAnswerView'])->name('addAnswerView')->middleware('auth');
 Route::post('answer/addAnswerFun', [AnswerController::class , 'addAnswerFun'])->name('addAnswerFun')->middleware('auth');
@@ -52,7 +53,6 @@ Route::get('answer/updateAnswerView', [AnswerController::class , 'updateAnswerVi
 Route::post('answer/updateAnswerFun', [AnswerController::class , 'updateAnswerFun'])->name('updateAnswerFun')->middleware('auth');
 
 Route::post('answer/delete', [AnswerController::class , 'deleteAnswerView'])->name('deleteAnswer')->middleware('auth');
-
 
 Auth::routes([
     'register' => false, // Registration Routes...

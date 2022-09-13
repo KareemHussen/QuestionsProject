@@ -7,9 +7,13 @@
 
 @section('content')
 
-    <div>
-        <button style="font-size: 15px" type="button" class="btn btn-primary mb-4 ms-3" onclick="location.href = 'http://127.0.0.1:8000/category/addCategoryView';">Add Category</button>
-    </div>
+    <form style="float:left; margin-left: 25px"
+          action="{{route('addCategoryView' , [], $absolute = false )}}"
+          method="get">
+        @csrf
+        <input type="submit" value="Add Category" class="btn btn-primary" style="font-size: 15px">
+    </form>
+
 
     <div>
         <table class="table table-striped ms-3">
