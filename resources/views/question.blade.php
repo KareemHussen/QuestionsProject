@@ -4,7 +4,6 @@
     Category
 @endsection
 
-<!DOCTYPE html>
 
 
 @section('content')

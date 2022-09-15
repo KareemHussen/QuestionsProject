@@ -59,6 +59,7 @@ class AnswerController extends Controller
             $answer = Answer::create([
                 'text' => $text,
                 'image' => $image,
+                'isCorrect'=> true,
                 'question_id'=> $question_id,
             ]);
 
@@ -304,8 +305,7 @@ class AnswerController extends Controller
             'question_id' => $question_id
         ]);
 
-        return redirect()->route('question',['category_id'=> $question->category_id]);
-//            redirect('http://127.0.0.1:8000/question?category_id='.$question->category_id);
+        return redirect('http://138.68.74.161/question?category_id='.$question->category_id);
 
     }
 

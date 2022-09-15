@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\URL;
 
 
 Route::get('category/get', [CategoryController::class , 'getAllCategories']);
+Route::get('category/specific' , [CategoryController::class , 'getSpecifecCategory']);
 Route::post('category/add', [CategoryController::class , 'addCategory']);
 Route::get('category/get/{id}', [CategoryController::class , 'getCategory']);
 Route::post('category/update', [CategoryController::class , 'updateCategory']);

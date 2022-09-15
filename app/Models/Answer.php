@@ -9,7 +9,7 @@ class Answer extends Model
 {
     use HasFactory;
 
-    protected $fillable= ['text' , 'image' , 'question_id'];
+    protected $fillable= ['text' , 'image' , 'question_id' , 'isCorrect'];
     public $timestamps = false;
 
     public function question(){

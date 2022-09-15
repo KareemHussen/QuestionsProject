@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use App\Models\Category;
 use App\Models\Question;
 use Illuminate\Http\Request;
@@ -29,7 +30,6 @@ class QuestionController extends Controller
             return response($response , 401);
 
         }
-
 
 
         if ($answer == null){
@@ -63,6 +63,29 @@ class QuestionController extends Controller
                 'title' => $title,
                 'answer' => $answer,
                 'category_id'=> $category_id,
+            ]);
+
+            $imageName = null;
+
+            if ($request->hasFile('image')){
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $imageName = time() . ".". $extension;
+                $file->move('uploads/AnswersImages/', $imageName);
+            }
+
+            if ($imageName){
+                $image = asset("uploads/AnswersImages/".$imageName);
+            } else {
+                $image =null;
+            }
+
+
+           Answer::create([
+                'text' => $answer,
+                'image' => $image,
+                'isCorrect'=> false,
+                'question_id'=> $question->id,
             ]);
 
 

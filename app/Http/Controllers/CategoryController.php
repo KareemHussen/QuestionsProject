@@ -69,6 +69,51 @@ class CategoryController extends Controller
 
     }
 
+    public function getSpecifecCategory()
+    {
+        $id = request("id");
+
+        if ($id == null){
+            $response = [
+                'data' => null,
+                'message' => 'Please enter id in path',
+                'status' => 401
+            ];
+            return response($response, 401);
+
+        }
+
+        $cat = Category::find($id);
+
+
+        $questionsArray = array();
+
+
+        if ($cat) {
+
+            foreach ($cat->questions as $question) {
+                $newmodel = new NewModel();
+                $newmodel->id = $question->id;
+                $newmodel->title = $question->title;
+                $newmodel->answer = $question->answer;
+                $newmodel->answers = $question->answers;
+                array_push($questionsArray ,$newmodel);
+            }
+
+            return response($questionsArray , 200);
+        } else {
+
+            $response = [
+                'data' => null,
+                'message' => 'Ther\'s no Category with this id',
+                'status' => 401
+            ];
+            return response($response , 401);
+
+        }
+    }
+
+
     public function addCategory()
     {
         $name = request("name");
@@ -329,4 +374,11 @@ class CategoryController extends Controller
 
         }
     }
+}
+
+class NewModel {
+    public $id;
+    public $title;
+    public $answer;
+    public $answers;
 }
