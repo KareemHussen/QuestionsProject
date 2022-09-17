@@ -449,6 +449,17 @@ class CategoryController extends Controller
 
             }
 
+            $file = null;
+
+            if ($cat->image) {
+                $file = 'uploads/CategoriesImages/' . $cat->image;
+            }
+
+            if (file_exists($file)) {
+                unlink($file);
+            }
+
+
             $cat->delete();
 
             return redirect()->route('category');
