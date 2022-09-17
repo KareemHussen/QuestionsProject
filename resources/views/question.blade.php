@@ -51,7 +51,7 @@
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     @foreach($answers[$question->id] as $answer)
-                                        <li><a class="dropdown-item" href="http://127.0.0.1:8000/answer/updateAnswerView?answer_id={{$answer->id}}">{{$answer->text}}</a></li>
+                                        <li><a class="dropdown-item" href="http://138.68.74.161/answer/updateAnswerView?answer_id={{$answer->id}}">{{$answer->text}}</a></li>
                                     @endforeach
                             </ul>
                         </div>

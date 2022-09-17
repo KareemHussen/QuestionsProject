@@ -95,9 +95,8 @@ class CategoryController extends Controller
                 $newmodel = new NewModel();
                 $newmodel->id = $question->id;
                 $newmodel->title = $question->title;
-                $newmodel->answer = $question->answer;
                 $newmodel->answers = $question->answers;
-                array_push($questionsArray ,$newmodel);
+                $questionsArray[] = $newmodel;
             }
 
             return response($questionsArray , 200);
@@ -114,9 +113,9 @@ class CategoryController extends Controller
     }
 
 
-    public function addCategory()
+    public function addCategory(Request $request)
     {
-        $name = request("name");
+        $name = $request->name;
 
         if ($name == null) {
 
@@ -128,9 +127,26 @@ class CategoryController extends Controller
             return response($response, 401);
         }
 
+        $imageName = null;
+
+        if ($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $imageName = time() . ".". $extension;
+            $file->move('uploads/CategoriesImages/', $imageName);
+        }
+
+        if ($imageName){
+            $image = asset("uploads/CategoriesImages/".$imageName);
+        } else {
+            $image =null;
+        }
+
+
 
         $cat = Category::create([
-            'name' => $name
+            'name' => $name,
+            'image' => $image
         ]);
 
         if ($cat) {
@@ -156,11 +172,11 @@ class CategoryController extends Controller
 
     }
 
-    public function updateCategory()
+    public function updateCategory(Request $request)
     {
 
-        $id = request('id');
-        $name = request('name');
+        $id = $request->id;
+        $name = $request->name;
 
         if ($id == null) {
 
@@ -183,13 +199,31 @@ class CategoryController extends Controller
         }
 
 
+        $imageName = null;
+
+        if ($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $imageName = time() . ".". $extension;
+            $file->move('uploads/CategoriesImages/', $imageName);
+        }
+
+        if ($imageName){
+            $image = asset("uploads/CategoriesImages/".$imageName);
+        } else {
+            $image =null;
+        }
+
+
         $cat = Category::find($id);
 
         if ($cat) {
 
             $cat->update([
-                'name' => $name
+                'name' => $name,
+                'image' => $image == null ? $cat->image : $image
             ]);
+
 
             $response = [
                 'data' => $cat,
@@ -251,7 +285,18 @@ class CategoryController extends Controller
 
             }
 
+            $file = null;
+
+            if ($cat->image) {
+                $file = 'uploads/CategoriesImages/' . $cat->image;
+            }
+
+            if (file_exists($file)) {
+                unlink($file);
+            }
+
             $cat->delete();
+
             $response = [
                 'data' => null,
                 'message' => 'Deleted Successfully',
@@ -282,18 +327,18 @@ class CategoryController extends Controller
         return view('category', ['categories' => $categories]);
     }
 
-    public function updateCategoryView()
+    public function updateCategoryView(Request $request)
     {
-        $category_id = request('category_id');
-        $name = request('name');
-        return view('update_category', ['category_id' => $category_id, 'name' => $name]);
+        $id = $request->category_id;
+        $cat = Category::find($id);
+        return view('update_category', ['category' => $cat]);
     }
 
-    public function updateCategoryFun()
+    public function updateCategoryFun(Request $request)
     {
 
-        $category_id = request('category_id');
-        $name = request('name');
+        $category_id = $request->category_id;
+        $name = $request->name;
 
         if ($category_id == null || $name == null) {
 
@@ -302,10 +347,31 @@ class CategoryController extends Controller
 
         $cat = Category::find($category_id);
 
+
+        $imageName = null;
+
+
+        if ($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $imageName = time() . ".". $extension;
+            $file->move('uploads/CategoriesImages/', $imageName);
+
+        }
+
+        if ($imageName){
+            $image = asset("uploads/CategoriesImages/".$imageName);
+
+        } else {
+            $image =null;
+        }
+
+
         if ($cat) {
 
             $cat->update([
-                'name' => $name
+                'name' => $name,
+                'image' => $image == null ? $cat->image : $image
             ]);
         }
 
@@ -326,8 +392,24 @@ class CategoryController extends Controller
             return redirect()->route('category');
         }
 
+        $imageName = null;
+
+        if ($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $imageName = time() . ".". $extension;
+            $file->move('uploads/CategoriesImages/', $imageName);
+        }
+
+        if ($imageName){
+            $image = asset("uploads/CategoriesImages/".$imageName);
+        } else {
+            $image =null;
+        }
+
         Category::create([
-            'name' => $name
+            'name' => $name,
+            'image' => $image
         ]);
 
         return redirect()->route('category');
@@ -379,6 +461,6 @@ class CategoryController extends Controller
 class NewModel {
     public $id;
     public $title;
-    public $answer;
+    public $image;
     public $answers;
 }

@@ -84,7 +84,7 @@ class QuestionController extends Controller
            Answer::create([
                 'text' => $answer,
                 'image' => $image,
-                'isCorrect'=> false,
+                'isCorrect'=> true,
                 'question_id'=> $question->id,
             ]);
 
@@ -304,21 +304,48 @@ class QuestionController extends Controller
         return view('add_question' , ['category_id' =>$category_id]);
     }
 
-    public function addQuestionFun()
+    public function addQuestionFun(Request $request)
     {
 
-        $title = request('title');
-        $answer = request('answer');
-        $category_id = request('category_id');
+        $title = $request->title;
+        $answer = $request->answer;
+        $category_id = $request->category_id;
 
-        Question::create([
-            'title' => $title,
-            'answer' => $answer,
-            'category_id' => $category_id
-        ]);
+        $cat = Category::find($category_id);
 
-        return redirect()->route('question',['category_id'=> $category_id]);
+        if ($cat) {
 
+            $question = Question::create([
+                'title' => $title,
+                'answer' => $answer,
+                'category_id' => $category_id,
+            ]);
+
+            $imageName = null;
+
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $imageName = time() . "." . $extension;
+                $file->move('uploads/AnswersImages/', $imageName);
+            }
+
+            if ($imageName) {
+                $image = asset("uploads/AnswersImages/" . $imageName);
+            } else {
+                $image = null;
+            }
+
+
+            Answer::create([
+                'text' => $answer,
+                'image' => $image,
+                'isCorrect' => true,
+                'question_id' => $question->id,
+            ]);
+
+            return redirect()->route('question', ['category_id' => $category_id]);
+        }
     }
 
     public function updateQuestionView(){

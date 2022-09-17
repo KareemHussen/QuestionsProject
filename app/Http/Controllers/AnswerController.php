@@ -302,6 +302,7 @@ class AnswerController extends Controller
         Answer::create([
             'text' => $text,
             'image' => $image,
+            'isCorrect' => false,
             'question_id' => $question_id
         ]);
 
