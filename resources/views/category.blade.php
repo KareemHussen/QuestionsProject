@@ -40,7 +40,7 @@
 
                     <td>
                         @if($category->image)
-                            <img src="{{ asset($category->image) }}"  style="width : 50px; height : 50px" alt="Image"  >
+                            <img src="{{ asset("uploads/CategoriesImages/".$category->image) }}"  style="width : 50px; height : 50px" alt="Image"  >
                         @endif
                     </td>
 

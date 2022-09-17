@@ -136,11 +136,7 @@ class CategoryController extends Controller
             $file->move('uploads/CategoriesImages/', $imageName);
         }
 
-        if ($imageName){
-            $image = asset("uploads/CategoriesImages/".$imageName);
-        } else {
-            $image =null;
-        }
+        $image = $imageName;
 
 
 
@@ -148,6 +144,8 @@ class CategoryController extends Controller
             'name' => $name,
             'image' => $image
         ]);
+
+
 
         if ($cat) {
 
@@ -352,6 +350,17 @@ class CategoryController extends Controller
 
 
         if ($request->hasFile('image')){
+
+            //Delete Previous Img
+            if ($cat->image){
+                $file ='uploads/CategoriesImages/'.$cat->image;
+                if (file_exists($file)){
+                    unlink($file);
+                }
+            }
+
+
+
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $imageName = time() . ".". $extension;
@@ -359,12 +368,7 @@ class CategoryController extends Controller
 
         }
 
-        if ($imageName){
-            $image = asset("uploads/CategoriesImages/".$imageName);
-
-        } else {
-            $image =null;
-        }
+        $image = $imageName;
 
 
         if ($cat) {
@@ -401,11 +405,7 @@ class CategoryController extends Controller
             $file->move('uploads/CategoriesImages/', $imageName);
         }
 
-        if ($imageName){
-            $image = asset("uploads/CategoriesImages/".$imageName);
-        } else {
-            $image =null;
-        }
+        $image = $imageName;
 
         Category::create([
             'name' => $name,
@@ -437,11 +437,13 @@ class CategoryController extends Controller
 
                     $file = null;
 
-                    if ($answer->image) {
-                        $file = 'uploads/AnswersImages/' . $answer->image;
+                    if ($answer->image){
+                        $file ='uploads/AnswersImages/'.$answer->image;
                     }
 
-                    if (file_exists($file)) {
+                    $answer->delete();
+
+                    if (file_exists($file)){
                         unlink($file);
                     }
                 }
@@ -451,11 +453,13 @@ class CategoryController extends Controller
 
             $file = null;
 
-            if ($cat->image) {
-                $file = 'uploads/CategoriesImages/' . $cat->image;
+            if ($cat->image){
+                $file ='uploads/CategoriesImages/'.$cat->image;
             }
 
-            if (file_exists($file)) {
+            $cat->delete();
+
+            if (file_exists($file)){
                 unlink($file);
             }
 

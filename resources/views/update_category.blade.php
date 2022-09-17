@@ -26,7 +26,7 @@
         <br>
 
         @if($category->image)
-            <img src="{{ asset($category->image) }}"  style="margin-left: 39%; width : 400px; height : 400px" alt="Image"  >
+            <img src="{{ asset("uploads/CategoriesImages/".$category->image) }}"  style="margin-left: 39%; width : 400px; height : 400px" alt="Image"  >
         @endif
 
         <br>

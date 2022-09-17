@@ -383,6 +383,7 @@ class AnswerController extends Controller
 
             if ($answer->image){
                 $file ='uploads/AnswersImages/'.$answer->image;
+                return $file;
             }
 
             $answer->delete();
