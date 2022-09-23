@@ -81,7 +81,7 @@ class QuestionController extends Controller
             }
 
 
-           Answer::create([
+            Answer::create([
                 'text' => $answer,
                 'image' => $image,
                 'isCorrect'=> true,

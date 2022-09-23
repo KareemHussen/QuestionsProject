@@ -8,13 +8,24 @@
 
 @section('content')
     <div>
-        <form class="ms-3 mt-3"
+        <form class="ms-3 mt-3" style="float:left;"
               action="{{route('addQuestionView' , ['category_id'=>$category_id] , $absolute = false)}}"
               method="post">
             @csrf
             <input style="font-size: 15px" type="submit" value="Add Question" class="btn btn-primary">
         </form>
+
+        @if(sizeof($questions) < 24)
+
+            <div  style="background-color: #ffdddd; border-left: 6px solid #f44336; width: 20%; margin-left: 1%; margin-top: 1%; float: left; margin-bottom: 1%">
+                <p><strong>Danger !</strong>  This category won't appear because the number of questions is less than 24</p>
+            </div>
+
+        @endif
+
     </div>
+
+
 
     <div>
         <table class="table table-striped ms-3">

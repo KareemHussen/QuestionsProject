@@ -21,6 +21,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
+                <th scope="col">Activity</th>
                 <th scope="col">Image</th>
                 <th scope="col">Configuration</th>
             </tr>
@@ -37,6 +38,13 @@
                             <h4>{{$category->name}}</h4></a>
                     </td>
 
+                    <td>
+                        @if(sizeof($category->questions) >= 24)
+                            <h4>Active</h4>
+                        @else
+                            <h4>{{"Inactive        ".sizeof($category->questions)." / 24"}}</h4>
+                        @endif
+                    </td>
 
                     <td>
                         @if($category->image)
