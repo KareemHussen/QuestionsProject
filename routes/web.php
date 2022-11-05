@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,19 @@ Route::get('answer/updateAnswerView', [AnswerController::class , 'updateAnswerVi
 Route::post('answer/updateAnswerFun', [AnswerController::class , 'updateAnswerFun'])->name('updateAnswerFun')->middleware('auth');
 
 Route::post('answer/delete', [AnswerController::class , 'deleteAnswerView'])->name('deleteAnswer')->middleware('auth');
+
+
+
+Route::get('notification', [NotificationController::class , 'nofication_page'])->name('notification')->middleware('auth');;
+
+Route::post('notification/addNotificationView', [NotificationController::class , 'addNotificationView'])->name('addNotificationView')->middleware('auth');;
+Route::post('notification/addNotificationFun', [NotificationController::class , 'addNotification'])->name('addNotificationFun')->middleware('auth');;
+
+Route::post('notification/updateNotificationView', [NotificationController::class , 'updateNotificationView'])->name('updateNotificationView')->middleware('auth');;
+Route::post('notification/updateNotificationFun', [NotificationController::class , 'updateNotification'])->name('updateNotificationFun')->middleware('auth');;
+
+Route::post('notification/delete', [NotificationController::class , 'deleteNotification'])->name('deleteNotification')->middleware('auth');;
+
 
 Auth::routes([
     'register' => false, // Registration Routes...
